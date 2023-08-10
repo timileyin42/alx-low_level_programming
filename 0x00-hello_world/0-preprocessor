@@ -1,8 +1,2 @@
-#include <stdio.h>
-
-/Greetings/
-int main(void)
-{
-   printf("greetings: Hello, World!\n")
-   return(0);
-}
+#!/bin/bash
+gcc $CFILE -e -o c
