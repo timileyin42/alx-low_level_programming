@@ -14,15 +14,12 @@ char *leet(char *str)
 
 	int x, y;
 
-	for (x = 0; str[x]; x++)
+	for (x = 0; str[x] != '\0'; x++)
 	{
-		for (y = 0; ch[y]; y++)
+		for (y = 0; y < 10; y++)
 		{
 			if (str[x] == ch[y])
-			{
-				str[x] = num[y / 2];
-				break;
-			}
+				str[x] = num[y];
 		}
 	}
 
