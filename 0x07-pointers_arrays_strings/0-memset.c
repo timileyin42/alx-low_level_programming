@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
 * _memset - Filling of the n bytes of the memory pointed to.
 * @s: Pointer to the memory area to be filled.
