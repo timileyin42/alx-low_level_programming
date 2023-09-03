@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	int sum = 0;
 
 	/* checking if their is command line */
-	if (argc == 1)
+	if (argc < 1)
 	{
 		/* no number print and return */
 		printf("0\n");
