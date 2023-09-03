@@ -1,49 +1,65 @@
 #include "main.h"
 
 /**
-* main - add positive number  and pass to the agruments.
-* @argc: argument count.
-* @argv: arguments passed to main as an array of strings.
+* checkIfNumeric - Check if a string contains only digits.
+* @str: The string to check.
 *
-* Return: 0 if success, 1 if otherwise.
+* Return: 1 if the string contains only digits, 0 otherwise.
 */
+int checkIfNumeric(const char *str)
+{
+	while (*str)
+	{
+		if (!isdigit(*str))
+		{
+			return (0);
+		}
+		str++;
+	}
+	return (1);
+}
 
+/**
+* main - Entry point of the program
+* @argc: The number of command-line arguments
+* @argv: An array of strings containing command-line arguments
+*
+* Description: This program adds positive,
+* numbers passed as command-line arguments,
+* and prints the result, or 0 if no numbers are provided.
+*
+* Return: 0 if successful, 1 if otherwise.
+*/
 int main(int argc, char *argv[])
 {
 	int x;
-
 	int sum = 0;
 
-	/* checking if their is command line */
-	if (argc < 1)
+	/* Check if there are command-line arguments */
+	if (argc == 1)
 	{
-		/* no number print and return */
+		/* No numbers provided, print 0 and return */
 		printf("0\n");
 		return (0);
 	}
 
-	/* loopthrough arg from index */
+	/* Loop through each argument starting from index 1 (skip program name) */
 	for (x = 1; x < argc; x++)
 	{
-		/* convert the argument to integers */
-		int y = atoi(argv[x]);
-
-		/* checking if there's error */
-		if (y <= 0 || (y == 0 && argv[x][0] != '0'))
+		/* Check if the argument is a positive integer */
+		if (!checkIfNumeric(argv[x]) || atoi(argv[x]) <= 0)
 		{
-			/* print error and return 1 */
+			/* Print an error message and return 1 for invalid input */
 			printf("Error\n");
-
 			return (1);
 		}
 
-		/* adding of the int to the sum */
-		sum += y;
+		/* Add the positive number to the sum */
+		sum += atoi(argv[x]);
 	}
 
-	/* print the sumof positive numbers */
+	/* Print the sum of positive numbers */
 	printf("%d\n", sum);
 
 	return (0);
 }
-
