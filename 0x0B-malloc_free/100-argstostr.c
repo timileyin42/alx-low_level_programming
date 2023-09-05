@@ -30,7 +30,7 @@ char *argstostr(int ac, char **av)
 			}
 	}
 	/* allocating of memory for concat string */
-	concat = malloc((length + ac) * sizeof(char));
+	concat = malloc((length + ac + 1) * sizeof(char));
 
 	/* checking for memory failure */
 	if (concat == NULL)
