@@ -1,45 +1,103 @@
 #include "main.h"
 
+int word_len(char *str);
+int count_words(char *str);
+char **strtow(char *str);
+
 /**
-* strtow - Splits a string into words.
-* @str: The input string to split.
-*
-* Return: A double pointer to an array of strings.
-*/
+ * word_len - Locates the index marking the end of the
+ * first word contained within a string.
+ * @str: The string to be searched.
+ *
+ * Return: The index marking the end of the initial word pointed to by str.
+ */
+
+int word_len(char *str)
+{
+	int x = 0, y = 0;
+
+	while (*(str + x) && *(str + x) != ' ')
+	{
+		x++;
+		y++;
+	}
+
+	return (x);
+}
+
+/**
+ * count_words - Counts the number of words contained within a string.
+ * @str: The string to be searched.
+ *
+ * Return: The number of words contained within str.
+ */
+
+int count_words(char *str)
+{
+	int x = 0, ch = 0, y = 0;
+
+	for (x = 0; *(str + x); x++)
+		y++;
+
+	for (x = 0; x < y; x++)
+	{
+		if (*(str + x) != ' ')
+		{
+			ch++;
+			x += word_len(str + x);
+		}
+	}
+
+	return (ch);
+}
+
+/**
+ * strtow - Splits a string into words.
+ * @str: The string to be split.
+ *
+ * Return: If str = NULL, str = "", or the function fails.
+ */
 
 char **strtow(char *str)
 {
-	int x;
-	int count = 0;
-	char **result;
-	char *token;
+	char **strings;
+	int index = 0, words, w, letters, l;
 
-	if (!str || !*str)
+	if (str == NULL || str[0] == '\0')
 		return (NULL);
 
-	/* Count the number of words in the string */
-	for (x = 0; str[x]; x++)
-		if (str[x] != ' ' && (x == 0 || str[x - 1] == ' '))
-			count++;
-
-	result = (char **)malloc((count + 1) * sizeof(char *));
-
-	if (!result)
+	words = count_words(str);
+	if (words == 0)
 		return (NULL);
 
-	token = strtok(str, " ");
+	strings = malloc(sizeof(char *) * (words + 1));
+	if (strings == NULL)
+		return (NULL);
 
-	for (x = 0; x < count; x++)
+	for (w = 0; w < words; w++)
 	{
-		/* allocating of memory */
-		result[x] = (char *)malloc((strlen(token) + 1) * sizeof(char));
-		if (!result[x])
+		while (str[index] == ' ')
+			index++;
+
+		letters = word_len(str + index);
+
+		strings[w] = malloc(sizeof(char) * (letters + 1));
+
+		if (strings[w] == NULL)
+		{
+			for (; w >= 0; w--)
+				free(strings[w]);
+
+			free(strings);
 			return (NULL);
-		strcpy(result[x], token);
-		token = strtok(NULL, " ");
+		}
+
+		for (l = 0; l < letters; l++)
+			strings[w][l] = str[index++];
+
+		strings[w][l] = '\0';
 	}
+	strings[w] = NULL;
 
-	result[count] = NULL;
-
-	return (result);
+	return (strings);
 }
