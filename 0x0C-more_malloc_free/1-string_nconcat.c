@@ -1,48 +1,52 @@
 #include "main.h"
 
 /**
-* string_nconcat - Concatenates two strings together.
+* string_nconcat - Concatenates two strings.
 * @s1: The first string.
 * @s2: The second string.
-* @n: numbers of char of s2 to concatenate to s1
+* @n: The number of bytes from s2 to concatenate.
 *
-* Return: A pointer to the concatenated string, return NULL if otherwise.
+* Return: A pointer to the concatenated string.
+*         If memory allocation fails, it returns NULL.
 */
-
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
+	unsigned int length1, length2;
+	unsigned int x, y;
 	char *concat;
-	unsigned int length1 = 0, length2 = 0;
-	unsigned int x;
 
-	/* if NULL is passed, treat as empty string */
-	if (!s1)
-		s1 = " ";
-	if (!s2)
-		s2 = " ";
+	/* Treat NULL as an empty string */
+	if (s1 == NULL)
+	s1 = "";
+	if (s2 == NULL)
+	s2 = "";
 
-	while (s1[length1])
-		length1++;
-	while (s2[length2] && length2 < n)
-		length2++;
+	/* Calculate the lengths of s1 and s2 */
+	length1 = strlen(s1);
+	length2 = strlen(s2);
 
-	/* allocating of memory for concat string */
-	concat = malloc((length1 + length2 + 1) * sizeof(char));
+	/* If n is greater than or equal to the length of s2, use the entire s2 */
+	if (n >= length2)
+		n = length2;
 
-	/* if malloc fails, return NULL */
-	if (!concat)
+	/* Allocate memory for the concatenated string */
+	concat = malloc(length1 + n + 1);
+
+	/* Check for memory allocation failure */
+	if (concat == NULL)
 		return (NULL);
 
-	/* copying s1 into concat var */
+	/* Copy characters from s1 to concatenated */
 	for (x = 0; x < length1; x++)
 		concat[x] = s1[x];
 
-	/* concatenate s2 into concat var */
-	for (x = 0; x < length2; x++)
-		concat[length1 + x] = s2[x];
+	/* Copy the first n characters from s2 to concatenated */
+	for (y = 0; y < n; y++)
+		concat[x + y] = s2[y];
 
-	/* NUll terminator- terminate concate */
-	concat[length1 + length2] = '\0';
+	/* Null-terminate the concatenated string */
+	concat[x + y] = '\0';
 
 	return (concat);
 }
+
