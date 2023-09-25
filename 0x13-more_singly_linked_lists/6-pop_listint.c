@@ -23,7 +23,7 @@ int pop_listint(listint_t **head)
 	/* storing of the newest head node in temporary var */
 	*head = temp->next;
 	/* getting the data of the head node */
-	count = temp->count;
+	count = temp->n;
 
 	/* freing of the memory of the old node */
 	free(temp);
