@@ -14,17 +14,16 @@ int pop_listint(listint_t **head)
 	/* var to store the data ofthe head node */
 	int count;
 
+	temp = *head;
+
 	/* checking if it's empty */
-	if (*head == NULL)
+	if (temp == NULL)
 		return(0);
 
 	/* storing of the newest head node in temporary var */
-	temp = *head;
+	*head = temp->next;
 	/* getting the data of the head node */
 	count = temp->n;
-
-	/* updating the head pointer to the next pointer */
-	*head = (*head)->next;
 
 	/* freing of the memory of the old node */
 	free(temp);
