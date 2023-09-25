@@ -19,7 +19,7 @@ size_t print_listint(const listint_t *h)
 	while (charge != NULL)
 	{
 		printf("%d\n", charge->n);
-		count+= 1;
+		count += 1;
 		charge = charge->next;
 	}
 
