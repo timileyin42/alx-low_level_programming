@@ -6,6 +6,7 @@
 *
 * Return: 1 if the string contains only digits, 0 otherwise.
 */
+
 int checkIfNumeric(const char *str)
 {
 	while (*str)
@@ -30,6 +31,7 @@ int checkIfNumeric(const char *str)
 *
 * Return: 0 if successful, 1 if otherwise.
 */
+
 int main(int argc, char *argv[])
 {
 	int x;
